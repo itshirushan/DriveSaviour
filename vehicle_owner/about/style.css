@@ -1,0 +1,26 @@
+.intro {
+    margin-top: 50px;
+    margin-left: 10rem;
+    text-align: justify;
+    display: flex;
+}
+
+.para {
+    width: 500px;
+}
+
+.topic {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.right {
+    width: 500px;
+    margin-left: 200px;
+}
+
+.right img {
+    margin-top: -50px;
+    max-width: 450px;
+    height: 500px;
+}
