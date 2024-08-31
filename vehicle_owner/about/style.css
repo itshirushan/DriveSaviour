@@ -21,6 +21,80 @@
 
 .right img {
     margin-top: -50px;
-    max-width: 450px;
-    height: 500px;
+    width: auto;
+    height: auto;
+}
+
+.card {
+    margin-left: 9rem;
+    display: flex;
+    margin-bottom: 30px;
+    
+}
+
+.card .cd {
+    margin: 20px;
+}
+
+@media (max-width: 1400px) {
+    .right img {
+        margin: auto;
+        margin-left: -50px;
+        width: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 1199px) {
+    .intro {
+        display: inline-block;
+        margin-top: -5px;
+        margin-left: 5rem;
+        margin-right: 5rem;
+    }
+
+    .para {
+        width: auto;
+    }
+
+    .card {
+        display: flex
+        margin-top: -20px;
+        margin-left: 5rem;
+        margin-right: 5rem;
+
+    }
+
+    .right img{
+        align-items: center;
+        width: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .intro {
+        width: auto;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .para {
+        width: auto;
+    }
+
+    .right {
+        width: auto;
+    }
+
+    .right img{
+        align-items: center;
+        width: auto;
+        height: auto;
+    }
+
+    .card {
+        display: inline;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
