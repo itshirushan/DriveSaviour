@@ -2,7 +2,6 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
     color: #333;
 }
 
@@ -30,7 +29,7 @@ body {
 }
 
 .topic h1 {
-    font-size: 40px;
+    font-size: 45px;
     margin: 10px 0;
     line-height: 1.2;
     font-weight: bold;
@@ -45,24 +44,35 @@ body {
 }
 
 button {
-    background-color: #0400d8; 
-    border: none;
-    padding: 15px 30px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
     margin-top: 20px;
-}
-
-button a {
-    color: #fff;
+    width: 150px;
+    color: #182431;
     text-decoration: none;
-    font-size: 18px;
     font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover {
-    background-color: #e64a19; 
+button:hover{
+    background-color: #2B5AC2;
+    color: white;
+    cursor: pointer;
+}
+
+.services-btn {
+    margin-top: 20px;
+    width: 150px;
+    color: #182431;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .services {
@@ -104,8 +114,11 @@ button:hover {
 .view-services {
     margin-top: 60px;
     text-align: center;
-    font-size: 40px;
     font-weight: bold;
+}
+
+.view-services h2 {
+    font-size: 40px;
 }
 
 .title-contri {
@@ -135,13 +148,13 @@ button:hover {
 
 .carousel-item {
     min-width: 30%;
-    height: 600px;
+    height: 500px;
     background-color: #007bff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-right: 10px; 
     transition: transform 0.3s ease;
-    padding: 20px; /
+    padding: 20px;
 }
 
 .carousel-item:last-child {
@@ -168,11 +181,10 @@ button:hover {
     cursor: pointer;
     color: #333;
     padding: 0 20px;
-    transition: color 0.3s ease;
 }
 
 .carousel-btn:hover {
-    color: #007bff;
+    color: #fff;
 }
 
 .carousel-btn.prev {
