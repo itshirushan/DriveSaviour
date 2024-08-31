@@ -63,30 +63,34 @@
                 </nav>
             </div>
         </header>
-
     </section>
 
-<section id="home">
-    <div class="container-home-section">
-        <div class="home-content reveal">
-            <h1>Welcome,</h1>
-            <h3>to <span></span></h3>
-            <p>Our web app connects users with local mechanics for vehicle breakdowns, allowing easy posting, browsing, and towing services. It features customer reviews, live chat, and secure payments, making vehicle maintenance convenient and stress-free.</p>
+    <section id="home">
+        <div class="container-home-section">
+            <div class="home-content reveal">
+                <h1>Welcome,</h1>
+                <h3>to <span></span></h3>
+                <p>Our web app connects users with local mechanics for vehicle breakdowns, allowing easy posting, browsing, and towing services. It features customer reviews, live chat, and secure payments, making vehicle maintenance convenient and stress-free.</p>
+            </div>
+            <div class="profile-picture reveal">
+                <!-- Background image -->
+            </div>
         </div>
-        <div class="profile-picture reveal">
-            <!-- Background image -->
-            <img class="side-img" src="img/Leonardo_Phoenix_A_mechanic_in_a_modern_garage_wearing_a_dark_1.png" alt="Mechanic">
-            <!-- Foreground images -->
-            <img class="gear rotate1" src="img/settings-icon.png" alt="Gear 1">
-            <img class="gear rotate2" src="img/settings-icon.png" alt="Gear 2">
-            <img class="gear rotate3" src="img/settings-icon.png" alt="Gear 3">
+    </section>
+
+    <section id="about">
+        <div class="about reveal">
+            <div class="profile-picture reveal">
+                <img src="img/me.png" alt="Image">
+            </div>
+            <div class="about-content reveal">
+                <h2 class="heading">About Me</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut dignissimos deleniti iure, ducimus aliquid ipsam iusto accusantium dolores. Quae nisi maxime, nostrum odit voluptas velit nam sequi aspernatur deserunt fugit? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed obcaecati odio molestiae tenetur ratione ipsa magnam et laboriosam quibusdam cum impedit natus praesentium debitis, delectus iure fugit soluta distinctio consequuntur!</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    
-
-    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
