@@ -19,11 +19,16 @@
                 <h1>Wherever You are?</h1>
                 <h1>We're Here to Help</h1>
 
+
+            <a href="../home/home.php" class="button modify">Book Now</a>
+
+
                 <button>
                     <a href="../post/post.php">
                         Find
                     </a>
                 </button>
+
             </div>
             <div class="side-img">
             <img src="../../img/mechnic.png" alt="mechanic image">
@@ -53,11 +58,7 @@
             <h2>Explore our full range of expert <br>
             Auto repair and maintenance services.</h2>
 
-            <button class="services-btn">
-                <a href="../book/book.php">
-                    View Services
-                </a>
-            </button>
+            <a href="../home/home.php" class="button modify">View Services</a>
         </div>
 
         <div class="contribution">
