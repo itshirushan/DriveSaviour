@@ -34,6 +34,7 @@ body{
 }
 
 .profilepic {
+    position: fixed;
     margin-top: 100px;
     margin-right: 10px;    
     float: right;
@@ -91,7 +92,7 @@ body{
     display: flex;
     flex-direction: column;
     margin-right: 50px;    
-    margin-left: 50px;
+    margin-top: -30rem;
 }
 
 /* Modal */
