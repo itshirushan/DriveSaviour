@@ -78,8 +78,10 @@ $vehicleResult = $stmt->get_result();
                 </div>
                 <div class="form-row">
                     <label for="location">Location:</label>
-                    <input type="text" id="location" name="location">
+                    <button type="button" id="shareLocationBtn" class="btn">Share My Location</button>
+                    <input type="hidden" id="location" name="location">
                 </div>
+
 
                 <div class="form-row">
                     <label for="vehicle_issue">Describe the Issue:</label>
@@ -94,24 +96,43 @@ $vehicleResult = $stmt->get_result();
     </div>
 
     <script>
-        $(document).ready(function() {
-            // Open modal on 'Choose' button click
-            $('.openModal').click(function() {
-                $('#model').val($(this).data('model'));
-                $('#year').val($(this).data('year'));
-                $('#number_plate').val($(this).data('number_plate'));
-                $('#fuel_type').val($(this).data('fuel_type'));
-                $('#engine_type').val($(this).data('engine_type'));
-                $('#tire_size').val($(this).data('tire_size'));
+    $(document).ready(function() {
+        // Open modal on 'Choose' button click
+        $('.openModal').click(function() {
+            $('#model').val($(this).data('model'));
+            $('#year').val($(this).data('year'));
+            $('#number_plate').val($(this).data('number_plate'));
+            $('#fuel_type').val($(this).data('fuel_type'));
+            $('#engine_type').val($(this).data('engine_type'));
+            $('#tire_size').val($(this).data('tire_size'));
 
-                $('#vehicleModal').show();
-            });
-
-            // Close modal
-            $('.close').click(function() {
-                $('#vehicleModal').hide();
-            });
+            $('#vehicleModal').show();
         });
-    </script>
+
+        // Close modal
+        $('.close').click(function() {
+            $('#vehicleModal').hide();
+        });
+
+        // Handle Share My Location button click
+        $('#shareLocationBtn').click(function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Get user's latitude and longitude
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+
+                    // Redirect to the map page with latitude and longitude as query parameters
+                    window.location.href = `map.php?lat=${latitude}&lon=${longitude}`;
+                }, function(error) {
+                    alert("Error fetching location: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    });
+</script>
+
 </body>
 </html>
