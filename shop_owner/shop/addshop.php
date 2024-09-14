@@ -3,7 +3,7 @@ session_start();
 include_once('../../connection.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $shop_name = $_POST['shop_name'];
+    $shop_name = mysqli_real_escape_string($conn, $_POST['shop_name']);
     $email = $_POST['email'];
     $number = $_POST['number'];
     $address = $_POST['address'];
