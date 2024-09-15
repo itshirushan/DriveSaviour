@@ -1,0 +1,296 @@
+/* General */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: "Poppins", sans-serif, "Pangolin";
+}
+
+header {
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* background-color: white; */
+}
+
+
+
+.container1 {
+    margin: 0;
+    display: flex;
+    margin-left: -100px;
+    margin-top: 50px;
+}
+
+.form-row{
+    clear: both;
+}
+.form-label{
+    font-weight: bold;
+    font-size: 18px;
+    width: 200px;
+    float: left;
+    text-align: left;
+    /* padding-left: 50px; */
+}
+
+.form-value{
+    float: left;
+    font-size: 18px;
+    text-align: left;
+}
+
+.profilepic {
+    position: fixed;
+    margin-top: 600px;
+    margin-left: 80rem;
+    float: right;
+    width: 250px;
+    height: 250px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profilepic img {
+    width: 100%;
+    height: auto;
+}
+
+.profileTop {
+    overflow: hidden;
+    margin-top: -270px;
+    margin-left: 15rem;
+}
+
+.profileTop h1, .profileTop h6 {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-top: 150px;
+}
+
+.profileTop .personal_details{
+    margin-top: 20px;
+}
+
+.profileTop .personal_details h2{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.profileTop .personal_details .form-row span{
+    margin-top: 15px;
+}
+
+body.dark-mode .profileTop .personal_details h2{
+    color: #b9b9b9;
+}
+
+body.dark-mode nav .menu-toggle .bar,
+body.dark-mode nav .menu-toggle .bar2{
+    background-color: rgb(255, 255, 255);
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    width: 100px;
+    color: #182431;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #2B5AC2;
+    border-radius: 88px;
+    background-color: #f0f8ff;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color .50s ease, color .50s ease;
+}
+
+.modal-content .btn {
+    margin-top: 20px;
+    
+}
+
+.btn:hover {
+    background-color: #2B5AC2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.side-container{
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;    
+    margin-bottom: -420px;
+    margin-top: -30rem;
+}
+
+/*modal dark mode*/
+body.dark-mode .modal {
+    background-color: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(1px); 
+    -webkit-backdrop-filter: blur(1px); 
+}
+
+body.dark-mode .modal-content{
+    background-color: black;
+    color: white;
+    border: 2px solid #0085FF;
+}
+
+/* Modal */
+.modal { 
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content h2{
+    margin-bottom: 25px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px; 
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    transition: all .50s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(255, 0, 0);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"], select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.modal::-webkit-scrollbar {
+    Display: none
+}
+
+
+
+/* Responsive */
+@media (max-width: 875px) {
+    .form-value {
+        font-size: 16px;
+        text-align: center; 
+    }
+
+    .container1 {
+        width: 100%;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 100px auto; 
+    }
+
+    .side-container {
+        order: 1;
+        margin: 20px 0; 
+        width: 100%; 
+        display: flex;
+        justify-content: center; 
+    }
+    
+    .profilepic {
+        margin-top: 20px;
+        width: 150px;
+        height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto; 
+    }
+
+    .profileTop {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 20px auto; 
+        width: 100%; 
+    }
+
+    .profileTop h1, .profileTop h6 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .profileTop h1 {
+        display: none;
+    }
+
+    .personal_details {
+        margin: 0; 
+        text-align: center; 
+    }
+
+    .modal-content {
+        margin-top: 100px;
+        width: 90%; 
+        max-width: 500px; 
+    }
+
+    .profilepic {
+        width: 120px;
+        height: 120px;
+    }
+}

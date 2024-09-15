@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch all job posts
-$sql = "SELECT * FROM vehicleissues";
+$sql = "SELECT vi.*, vo.name 
+from vehicleissues vi
+    JOIN vehicle_owner vo ON vi.email = vo.email WHERE mech_id IS NULL";
 $result = $conn->query($sql);
 ?>
 
@@ -59,16 +60,15 @@ $result = $conn->query($sql);
             <?php while($row = $result->fetch_assoc()): ?>
                 <div class="issue-card">
                     <div class="card-header">
-                        <h5><?= htmlspecialchars($row['first_name']); ?></h5>
+                        <h5><?= htmlspecialchars($row['name']); ?></h5>
                     </div>
                     <div class="card-body">
                         <p><span class="issue-title">Email: </span><?= htmlspecialchars($row['email']); ?></p>
                         <p><span class="issue-title">Vehicle Model: </span><?= htmlspecialchars($row['vehicle_model']); ?></p>
                         <p><span class="issue-title">Year: </span><?= htmlspecialchars($row['year']); ?></p>
                         <p><span class="issue-title">Mobile Number: </span><?= htmlspecialchars($row['mobile_number']); ?></p>
-                        <p><span class="issue-title">Location: </span><?= htmlspecialchars($row['location']); ?></p>
+                        <!-- <p><span class="issue-title">Location: </span><?= htmlspecialchars($row['location']); ?></p> -->
                         <p><span class="issue-title">Vehicle Issue: </span><?= htmlspecialchars($row['vehicle_issue']); ?></p>
-                        <p><span class="issue-title">Status: </span><span class="issue-status"><?= htmlspecialchars($row['status']); ?></span></p>
                         <button class="btn" onclick="window.location.href='view_issue.php?id=<?= $row['id']; ?>'">Check</button>
 
                     </div>

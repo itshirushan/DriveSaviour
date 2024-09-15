@@ -32,21 +32,16 @@
 
 .issue-card .card-header h5 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
 .issue-card .card-body {
     padding: 10px;
+    line-height: 25px;
 }
 
 .issue-title {
     font-weight: bold;
-}
-
-.issue-status {
-    color: red;
-    background: yellow;
-    padding: 2px 4px;
-    border-radius: 4px;
 }
 
 /* view_issue.php  */
