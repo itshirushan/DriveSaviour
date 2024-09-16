@@ -59,7 +59,7 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../reservation/reservation.php">
+                    <a href="../Vehicle Owners/veiw_owners.php">
                         <i class='bx bxs-file-find'></i>
                         <span class="nav-item">View Vehicle Owner</span>
                     </a>
@@ -69,6 +69,12 @@ if (isset($_POST['logout'])) {
                        
                         <i class='bx bx-user-plus'></i>
                         <span class="nav-item">Add Vehicle Owner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="..//.php">
+                    <i class='bx bxs-category-alt'></i>
+                        <span class="nav-item">Product Catogories</span>
                     </a>
                 </li>
                 <li>
