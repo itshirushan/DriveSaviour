@@ -34,7 +34,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <br>
   
     <div class="title">
-        <h1>Manage Vehicle Owners</h1>
+        <h1>Add Vehicle Owners</h1>
         <br><br>     
     </div>
 
@@ -81,39 +81,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     </form>
 
 
-    <!-- manage modal -->
-    <div id="manageOwnerModal" class="modal">
-        <div class="modal-content">
-            <span id="closeManageOwnerModal" class="close">&times;</span>
-            <h2>Manage Owner</h2>
-            <form id="manageOwnerForm" action="owner_manage.php" method="POST">
-                <input type="hidden" id="manage_owner_id" name="id">
-                <div class="form-group">
-                    <label for="manage_name">Name:</label>
-                    <input type="text" id="manage_name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_email">Email:</label>
-                    <input type="email" id="manage_email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_phone">Phone:</label>
-                    <input type="text" id="manage_phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_address">Address:</label>
-                    <input type="text" id="manage_address" name="address" required>
-                </div>
-                <div class="form-group">
-                    <label for="manage_city">City:</label>
-                    <input type="text" id="manage_city" name="city" required>
-                </div>
-                <br>
-                <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
-                <button type="submit" name="action" value="delete" class="batch delete-link">Delete</button>
-            </form>
-        </div>
-    </div>
 </div>
 
 
