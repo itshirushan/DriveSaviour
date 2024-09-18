@@ -37,7 +37,7 @@ if ($result_vehicle->num_rows > 0) {
 
     if ($stmt->execute()) {
         echo "Vehicle issue reported successfully!";
-        header('Location: post.php');
+        header('Location: ../mech/breakdown_details.php');
         exit();
     } else {
         echo "Error: " . $stmt->error;

@@ -1,0 +1,161 @@
+.body {
+    margin-top: 100px;
+    margin-left: 50px;
+}
+
+.vehicle-card-container {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  /* justify-content: center; */
+}
+  
+.vehicle-card {
+  background-color: #f8f8f8;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 400px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.vehicle-card:hover {
+  transform: scale(1.05);
+}
+
+.vehicle-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 18px;
+}
+
+.vehicle-card p {
+  margin: 8px 0;
+  margin-bottom: 10px;
+}
+
+.vehicle-card .btn{
+  margin-top: 10px;
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 100px;
+  color: #182431;
+  font-weight: bold;
+  padding: 10px;
+  border: 1px solid #2B5AC2;
+  border-radius: 88px;
+  background-color: #f0f8ff;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2B5AC2;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.modal, #rateModal {
+  display: none; /* Hidden by default */ 
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    position: relative;
+    max-width: 600px;
+    border-radius: 20px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+}
+
+#updateModal span {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"], textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+
+@media (max-width: 480px) {
+  .body {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .vehicle-card {
+    width: auto;
+    align-items: center;
+    margin-bottom: 30px;
+
+  }
+
+  .vehicle-card-container {
+    margin-top: 20px;
+    display: inline;
+    font-size: 20px;
+  }
+
+
+}
