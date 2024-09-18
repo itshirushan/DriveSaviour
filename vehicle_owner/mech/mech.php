@@ -20,7 +20,8 @@
                 <h1>We're Here to Help</h1>
 
 
-            <a href="../post/post.php" class="button modify">Find</a>
+            <a href="../post/post.php" class="button">Find</a>
+            <a href="breakdown_details.php" class="button">Breakdowns</a>
 
             </div>
             <div class="side-img">
