@@ -18,13 +18,12 @@ try {
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $phone = mysqli_real_escape_string($conn, $_POST['phone']);
         $address = mysqli_real_escape_string($conn, $_POST['address']);
-        $dob = $_POST['dob'];
 
         if ($_POST['action'] == 'edit') {
             
-            $sql = "UPDATE mechanic SET name=?, email=?, phone=?, address=?, dob=? WHERE userID=?";
+            $sql = "UPDATE mechanic SET name=?, email=?, phone=?, address=? WHERE userID=?";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param('sssssi', $name, $email, $phone, $address, $dob, $userID);
+            $stmt->bind_param('ssssi', $name, $email, $phone, $address, $userID);
             $stmt->execute();
             $stmt->close();
             

@@ -9,20 +9,25 @@ if (!isset($_SESSION['email'])) {
 
 $loggedInOwnerEmail = $_SESSION['email'];
 
+
 require('../navbar/nav.php');
 include_once('../../connection.php');
 
+// Get the shop_id from the URL query string
+$shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
 
-
-
+// Fetch products only for the specified shop
 $product_data = [];
-$stmt = $conn->prepare("SELECT * FROM products"); // Removed WHERE clause
-$stmt->execute();
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
-    $product_data[] = $row;
+if ($shop_id > 0) {
+    $stmt = $conn->prepare("SELECT * FROM products WHERE shop_id = ?");
+    $stmt->bind_param("i", $shop_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        $product_data[] = $row;
+    }
+    $stmt->close();
 }
-$stmt->close();
 
 $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 ?>
@@ -58,6 +63,9 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
 
         <!-- Add Product Form -->
         <form action="add_product.php" method="POST" enctype="multipart/form-data">
+            <!-- Hidden field for shop_id -->
+            <input type="hidden" name="shop_id" value="<?php echo htmlspecialchars($shop_id); ?>">
+            
             <div class="form-container">
                 <div class="form-row">
                     <div class="form-group">
@@ -83,7 +91,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <input type="text" id="price" name="price" required>
                     </div>
                 </div>
-                
+
             </div>
             <br>
             <button type="submit" name="action" value="insert" class="batch view-link">Add Product</button>
@@ -100,40 +108,46 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
         </div>
 
         <!-- Products Table -->
-        <h2>Product List</h2>
-        <div class="table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Product Name</th>
-                        <th>Image</th>
-                        <th>Quantity Available</th>
-                        <th>Price</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="product-tbody">
-                    <?php foreach ($product_data as $row): ?>
+        <h2>Product List for Shop ID: <?= htmlspecialchars($shop_id) ?></h2>
+            <div class="table">
+                <table>
+                    <thead>
                         <tr>
-                            <td data-cell="Product Name"><?= htmlspecialchars($row['product_name']) ?></td>
-                            <td data-cell="Image"><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
-                            <td data-cell="Quantity"><?= htmlspecialchars($row['quantity_available']) ?></td>
-                            <td data-cell="Price">Rs.<?= htmlspecialchars($row['price']) ?></td>
-                            <td>
-                                <button class="manage-button view-link" 
-                                        data-id="<?= htmlspecialchars($row['id']) ?>"
-                                        data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
-                                        data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
-                                        data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
-                                        data-price="<?= htmlspecialchars($row['price']) ?>">
-                                    Manage
-                                </button>
-                            </td>
+                            <th>Product Name</th>
+                            <th>Image</th>
+                            <th>Quantity Available</th>
+                            <th>Price</th>
+                            <th>Action</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody id="product-tbody">
+                        <?php if (count($product_data) > 0): ?>
+                            <?php foreach ($product_data as $row): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($row['product_name']) ?></td>
+                                    <td><img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>" width="50"></td>
+                                    <td><?= htmlspecialchars($row['quantity_available']) ?></td>
+                                    <td>Rs.<?= htmlspecialchars($row['price']) ?></td>
+                                    <td>
+                                        <button class="manage-button view-link" 
+                                                data-id="<?= htmlspecialchars($row['id']) ?>"
+                                                data-product_name="<?= htmlspecialchars($row['product_name']) ?>"
+                                                data-image_url="<?= htmlspecialchars($row['image_url']) ?>"
+                                                data-quantity_available="<?= htmlspecialchars($row['quantity_available']) ?>"
+                                                data-price="<?= htmlspecialchars($row['price']) ?>">
+                                            Manage
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="5">No products found for this shop.</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
 
         <!-- Manage Product Modal -->
         <div id="manageProductModal" class="modal">
@@ -142,6 +156,8 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <h2>Manage Product</h2>
                 <form id="manageProductForm" action="product_manage.php" method="POST">
                     <input type="hidden" id="manage_product_id" name="id">
+                    <input type="hidden" id="manage_shop_id" name="shop_id" value="">
+
                     <div class="form-group">
                         <label for="manage_product_name">Product Name:</label>
                         <input type="text" id="manage_product_name" name="product_name" required>
@@ -190,12 +206,14 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 var imageUrl = this.dataset.image_url;
                 var quantityAvailable = this.dataset.quantity_available;
                 var price = this.dataset.price;
+                var shopId = "<?php echo $shop_id; ?>";
 
                 document.getElementById('manage_product_id').value = productId;
                 document.getElementById('manage_product_name').value = productName;
                 document.getElementById('manage_image_url').value = imageUrl;
                 document.getElementById('manage_quantity_available').value = quantityAvailable;
                 document.getElementById('manage_price').value = price;
+                document.getElementById('manage_shop_id').value = shopId;
 
                 manageProductModal.style.display = "block";
             });
