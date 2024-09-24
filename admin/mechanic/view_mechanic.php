@@ -5,7 +5,7 @@ include_once('../../connection.php');
 
 
 $mechanic_data = [];
-$stmt = $conn->prepare("SELECT userID, name, email, phone, address, dob FROM mechanic");
+$stmt = $conn->prepare("SELECT * FROM mechanic");
 $stmt->execute();
 $result = $stmt->get_result();
 if ($result) {
@@ -27,7 +27,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mechanic Manage</title>
     <link rel="stylesheet" href="../navbar/style.css">
-    <link rel="stylesheet" href="view_mechanic.css">
+    <link rel="stylesheet" href="../Vehicle Owners/view_owners.css">
 </head>
 <body>
 <div class="main_container">
@@ -62,7 +62,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
-                    <th>Date of Birth</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -73,7 +72,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <td data-cell="Email"><?= htmlspecialchars($row['email']) ?></td>
                         <td data-cell="Phone"><?= htmlspecialchars($row['phone']) ?></td>
                         <td data-cell="Address"><?= htmlspecialchars($row['address']) ?></td>
-                        <td data-cell="DOB"><?= htmlspecialchars($row['dob']) ?></td>
                         <td>
                             <button class="manage-button view-link" 
                                     data-id="<?= htmlspecialchars($row['userID']) ?>"
@@ -81,7 +79,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                                     data-email="<?= htmlspecialchars($row['email']) ?>"
                                     data-phone="<?= htmlspecialchars($row['phone']) ?>"
                                     data-address="<?= htmlspecialchars($row['address']) ?>"
-                                    data-dob="<?= htmlspecialchars($row['dob']) ?>">
+                                    >
                                     <i class='bx bxs-cog'></i>
                             </button>
                         </td>
@@ -119,10 +117,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <input type="text" id="manage_address" name="address" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="manage_dob">Date of Birth:</label>
-                    <input type="date" id="manage_dob" name="dob" required>
-                </div>
                 <br>
                 <button type="submit" name="action" value="edit" class="batch view-link">Edit</button>
                 <button type="submit" name="action" value="delete" class="batch delete-link">Delete</button>
@@ -146,7 +140,6 @@ document.querySelectorAll('.manage-button').forEach(button => {
         document.getElementById('manage_email').value = email;
         document.getElementById('manage_phone').value = phone;
         document.getElementById('manage_address').value = address;
-        document.getElementById('manage_dob').value = dob;
 
         document.getElementById('manageBatchModal').style.display = "block";
     });
