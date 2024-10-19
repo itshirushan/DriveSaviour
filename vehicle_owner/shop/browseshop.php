@@ -54,7 +54,7 @@ $result = $conn->query($sql);
 <script>
 // JavaScript function to view products for the specific shop
 function viewProducts(shopId) {
-    window.location.href = 'products.php?shop_id=' + shopId;
+    window.location.href = 'products-card.php?shop_id=' + shopId;
 }
 </script>
 
