@@ -1,0 +1,110 @@
+.main_container {
+            width: 90%;
+            margin-top: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+        }
+
+        .view-cart-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            width: 100px;
+            height: 35px;
+            color: #182431;
+            font-weight: bold;
+            padding: 10px;
+            border: 1px solid #2B5AC2;
+            border-radius: 88px;
+            background-color: #f0f8ff;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .view-cart-btn:hover, .search-btn:hover {
+            background-color: #2B5AC2;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+	.search-btn {
+		width: 100px;
+		height: 35px;
+		color: #182431;
+            	font-weight: bold;
+            	padding: 10px;
+            	border: 1px solid #2B5AC2;
+            	border-radius: 88px;
+		background-color: #f0f8ff;
+		text-align: center;
+            	transition: background-color 0.3s ease, color 0.3s ease;
+	}
+
+        .product-card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .product-card {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-details h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .product-details .price {
+            font-size: 16px;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .product-details input[type="number"] {
+            width: 60px;
+            margin-bottom: 10px;
+        }
+
+        .product-details button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .product-details button:hover {
+            background-color: #218838;
+        }
+
+	select, input[type="text"], input[type="date"], input[type="time"], input[type="number"], input[type="password"], input[type="email"] {
+	    padding: 8px;
+	    margin-bottom: 10px;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    font-size: 16px;
+	}

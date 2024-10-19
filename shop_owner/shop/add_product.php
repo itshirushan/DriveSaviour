@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $image = filter_var($image, FILTER_SANITIZE_STRING);
         $image_size = $_FILES['image']['size'];
         $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_folder = '../uploads/' . $image;
+        $image_folder = '../../uploads/' . $image;
 
         // Check if product already exists in the same shop
         $select_products = mysqli_prepare($conn, "SELECT * FROM products WHERE product_name = ? AND shop_id = ?");
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit;
             } else {
                 // Debugging: Check if the uploads directory is writable
-                if (!is_writable('../uploads/')) {
+                if (!is_writable('../../uploads/')) {
                     $error = "Upload directory is not writable.";
                     header("Location: products.php?message=error&error=" . urlencode($error));
                     exit;
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 // Move the uploaded image to the target folder
                 if (move_uploaded_file($image_tmp_name, $image_folder)) {
-                    $image_url = '../uploads/' . $image;
+                    $image_url = '../../uploads/' . $image;
 
                     // Insert product into the database
                     $insert_product = mysqli_prepare($conn, "INSERT INTO products (shop_id, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?)");
