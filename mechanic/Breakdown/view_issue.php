@@ -80,9 +80,10 @@ function initMap() {
     });
 
     // Add a marker at the destination location
-    var marker = new google.maps.Marker({
+    var destinationMarker = new google.maps.Marker({
         position: destination,
-        map: map
+        map: map,
+        title: 'Destination'
     });
 
     // Directions service and renderer to display the route
@@ -91,31 +92,53 @@ function initMap() {
         map: map
     });
 
-    // Get the user's current location
+    // Marker for the user's real-time location
+    var userLocationMarker = new google.maps.Marker({
+        map: map,
+        title: 'Your Location',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8,
+            fillColor: '#00f',
+            fillOpacity: 0.8,
+            strokeColor: '#00f',
+            strokeWeight: 2
+        }
+    });
+
+    // Watch the user's current location
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
+        navigator.geolocation.watchPosition(function (position) {
             var currentLocation = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
 
+            // Update the user's marker position without affecting map zoom or center
+            userLocationMarker.setPosition(currentLocation);
+
             // Set up the directions request
             var request = {
-                origin: currentLocation, // Start point (user's current location)
+                origin: currentLocation, // Start point (user's real-time location)
                 destination: destination, // End point (stored location)
-                travelMode: 'DRIVING' // You can change this to 'WALKING', 'BICYCLING', etc.
+                travelMode: 'DRIVING'
             };
 
             // Get and display the route
-            directionsService.route(request, function(result, status) {
-                if (status == 'OK') {
+            directionsService.route(request, function (result, status) {
+                if (status === 'OK') {
                     directionsRenderer.setDirections(result);
                 } else {
-                    alert('Could not calculate route: ' + status);
+                    console.warn('Could not calculate route: ' + status);
                 }
             });
-        }, function() {
+        }, function (error) {
+            console.error('Error watching location: ', error.message);
             alert('Geolocation failed. Unable to retrieve your location.');
+        }, {
+            enableHighAccuracy: true, // Get a more accurate location
+            timeout: 5000,            // Set timeout
+            maximumAge: 0             // Disable cache for real-time updates
         });
     } else {
         alert('Geolocation is not supported by this browser.');
@@ -124,6 +147,9 @@ function initMap() {
 
 // Initialize the map when the page loads
 window.onload = initMap;
+
+
+
 
 // Modal Logic
 document.querySelector('.accept-btn').addEventListener('click', function() {
