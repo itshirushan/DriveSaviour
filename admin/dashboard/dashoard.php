@@ -2,6 +2,7 @@
 ob_start(); 
 
 require '../navbar/navbar.php';
+require '../../connection.php';
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -12,7 +13,40 @@ if (isset($_POST['logout'])) {
     header("Location: ../adminLogin/adminLogin.php");
     exit();
 } 
+
+if (!isset($_SESSION['email'])) {
+    echo "User is not logged in.";
+    exit();
+}
+
+$loggedInOwnerEmail = $_SESSION['email'];
+
+try {
+    $stmt = $conn->prepare("SELECT p.*, s.* 
+                            FROM products p 
+                            JOIN shops s ON p.shop_id = s.id 
+                            WHERE p.quantity_available <= 5 
+                            AND s.ownerEmail = ?");
+    $stmt->bind_param("s", $loggedInOwnerEmail);
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $product_data = [];
+
+    // Fetch all products that need to be restocked
+    while ($row = $result->fetch_assoc()) {
+        $product_data[] = $row;
+    }
+    $stmt->close();
+
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+    exit();
+}
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -26,6 +60,40 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="../navbar/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .product-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+        }
+        .product-card .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .product-card .product-quantity, .product-card .shop-name {
+            margin: 5px 0;
+        }
+        .wrappers {
+            margin-left: 300px;
+            display: flex;
+            flex-wrap: wrap;
+            
+        }
+    </style>
 
 </head>
 <body>
@@ -57,8 +125,23 @@ if (isset($_POST['logout'])) {
 
     <div class="content">
         <div class="text">
-            <h2>Recent Booking</h2>
-            <h3>No Booking</h3>
+            <h2>Goods to be restocked</h2>
+
+        </div>
+
+        <div class="wrappers">
+            <?php if(!empty($product_data)): ?>
+                <?php foreach($product_data as $product): ?>
+                    <div class="product-card">
+                        <img src="<?php echo $product['image_url']; ?>" alt="<?php echo $product['product_name']; ?>">
+                        <div class="product-name"><?php echo $product['product_name']; ?></div>
+                        <div class="product-quantity">Available: <?php echo $product['quantity_available']; ?></div>
+                        <div class="shop-name">Shop: <?php echo $product['shop_name']; ?> <?php echo $product['branch']; ?> Branch</div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No products need restocking at the moment.</p>
+            <?php endif; ?>
         </div>
     </div>
 
