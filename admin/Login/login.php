@@ -1,12 +1,14 @@
 <?php
+session_start();
+
 require '../../connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
-    $userID = $_POST['userID'];
+    $userID = $_POST['email'];
     $password = $_POST['password'];
 
     // Fetch admin data from the database
-    $stmt = $conn->prepare("SELECT * FROM admin WHERE userID = ?");
+    $stmt = $conn->prepare("SELECT * FROM admin WHERE email = ?");
     $stmt->bind_param("s", $userID);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -15,15 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         $admin = $result->fetch_assoc();
 
         if ($password === $admin['password']) {
+            // Set session variable with admin email
+            $_SESSION['email'] = $admin['email'];
 
+            // Redirect to the dashboard
             header("Location: ../dashboard/dashoard.php");
-
             exit();
         } else {
             echo "Invalid password!";
         }
     } else {
-        echo "No admin found with this userID.";
+        echo "No admin found with this email.";
     }
 
     $stmt->close();
@@ -31,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +60,7 @@ $conn->close();
                     <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your userID and password</span>
-                <input type="text" name="userID" placeholder="UserID" required>
+                <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <a href="#">Forget Your Password?</a>
                 <button type="submit" name="login">Sign In</button>

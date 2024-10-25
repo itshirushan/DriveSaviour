@@ -41,7 +41,7 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="../addStaff/addStaff.php">
+                    <a href="../shop/shop.php">
                         <i class='bx bx-add-to-queue'></i>
                         <span class="nav-item">Add Shop</span>
                     </a>
