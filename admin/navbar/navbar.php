@@ -29,12 +29,11 @@ if (isset($_POST['logout'])) {
         <nav id="sidebar">
             <ul>
                 <li>
-                    <a href="../welcome/welcome.php" class="logo">
+                    <a href="../dashboard/dashoard.php" class="logo">
                         <img src="../../img/ss.png">
                     </a>
                 </li>
                 <li>
-
                     <a href="../dashboard/dashoard.php">
                         <i class='bx bxs-dashboard'></i>
                         <span class="nav-item">Dashboard</span>
@@ -45,7 +44,13 @@ if (isset($_POST['logout'])) {
                         <i class='bx bx-add-to-queue'></i>
                         <span class="nav-item">Add Shop</span>
                     </a>
-                </li>   
+                </li>
+                <li>
+                    <a href="../products/shoplist.php">
+                        <i class='bx bxs-edit'></i>
+                        <span class="nav-item">Add Products</span>
+                    </a>
+                </li>
                 <li>
                     <a href="../shop/view_shop.php">
                        <i class='bx bx-list-ul'></i>
@@ -65,17 +70,12 @@ if (isset($_POST['logout'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="..//.php">
+                    <a href="../categories/category.php">
                     <i class='bx bxs-category-alt'></i>
                         <span class="nav-item">Product Catogories</span>
                     </a>
                 </li>
-                <li>
-                    <a href="../editWebsite/editWebsite.php">
-                        <i class='bx bxs-edit'></i>
-                        <span class="nav-item">Edit Website</span>
-                    </a>
-                </li>
+                
                 <li>
                     <form method="POST">
                         <button class="logout" name="logout">
