@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
     $quantity_available = (int) $_POST['quantity_available'];
     $price = filter_var($_POST['price'], FILTER_SANITIZE_STRING);
+    $category_id = filter_var($_POST['category_id'], FILTER_SANITIZE_NUMBER_INT); // Capture the category ID
 
     // Image upload handling
     if (isset($_FILES['image'])) {
@@ -26,18 +27,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Check if product already exists in the same shop
         $select_products = mysqli_prepare($conn, "SELECT * FROM products WHERE product_name = ? AND shop_id = ?");
-        mysqli_stmt_bind_param($select_products, "si", $product_name, $shop_id); // Bind both the product name (string) and shop ID (integer)
+        mysqli_stmt_bind_param($select_products, "si", $product_name, $shop_id);
         mysqli_stmt_execute($select_products);
         mysqli_stmt_store_result($select_products);
 
-        // Check if any rows were returned
         if (mysqli_stmt_num_rows($select_products) > 0) {
             $error = "Product name already exists!";
             header("Location: products.php?shop_id=$shop_id&message=error&error=" . urlencode($error));
             exit;
         } else {
             // Check if image size is too large
-            if ($image_size > 2000000) { // 2MB limit
+            if ($image_size > 2000000) {
                 $error = "Image size is too large!";
                 header("Location: products.php?message=error&error=" . urlencode($error));
                 exit;
@@ -47,39 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $error = "Upload directory is not writable.";
                     header("Location: products.php?message=error&error=" . urlencode($error));
                     exit;
-                }
+                } else {
+                    // Move the uploaded image to the uploads directory
+                    move_uploaded_file($image_tmp_name, $image_folder);
 
-                // Move the uploaded image to the target folder
-                if (move_uploaded_file($image_tmp_name, $image_folder)) {
-                    $image_url = '../../uploads/' . $image;
-
-                    // Insert product into the database
-                    $insert_product = mysqli_prepare($conn, "INSERT INTO products (shop_id, product_name, image_url, quantity_available, price) VALUES (?, ?, ?, ?, ?)");
-                    mysqli_stmt_bind_param($insert_product, "issdi", $shop_id, $product_name, $image_url, $quantity_available, $price);
+                    // Insert the new product into the database
+                    $insert_product = mysqli_prepare($conn, "INSERT INTO products (product_name, cat_id, shop_id, quantity_available, price, image_url) VALUES (?, ?, ?, ?, ?, ?)");
+                    mysqli_stmt_bind_param($insert_product, "siidss", $product_name, $category_id, $shop_id, $quantity_available, $price, $image_folder); // Bind parameters
 
                     if (mysqli_stmt_execute($insert_product)) {
                         header("Location: products.php?shop_id=$shop_id&message=insert");
-                        exit;
                     } else {
-                        $error = "Failed to insert product.";
-                        header("Location: products.php?message=error&error=" . urlencode($error));
-                        exit;
+                        $error = "Failed to add the product.";
+                        header("Location: products.php?shop_id=$shop_id&message=error&error=" . urlencode($error));
                     }
-                } else {
-                    // Debugging: Show error if move_uploaded_file fails
-                    $error = "Failed to upload image. Error: " . print_r(error_get_last(), true);
-                    header("Location: products.php?message=error&error=" . urlencode($error));
-                    exit;
+                    mysqli_stmt_close($insert_product);
                 }
             }
         }
-    } else {
-        $error = "Please upload a valid image.";
-        header("Location: products.php?message=error&error=" . urlencode($error));
-        exit;
+        mysqli_stmt_close($select_products);
     }
-} else {
-    // Redirect back if the request method is not POST
-    header("Location: products.php");
-    exit;
 }

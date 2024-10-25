@@ -9,9 +9,18 @@ if (!isset($_SESSION['email'])) {
 
 $loggedInOwnerEmail = $_SESSION['email'];
 
-
 require('../navbar/navbar.php');
 include_once('../../connection.php');
+
+// Fetch all categories from the database
+$category_data = [];
+$category_stmt = $conn->prepare("SELECT id, category_name FROM category");
+$category_stmt->execute();
+$category_result = $category_stmt->get_result();
+while ($category_row = $category_result->fetch_assoc()) {
+    $category_data[] = $category_row;
+}
+$category_stmt->close();
 
 // Get the shop_id from the URL query string
 $shop_id = isset($_GET['shop_id']) ? intval($_GET['shop_id']) : 0;
@@ -71,6 +80,17 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                     <div class="form-group">
                         <label for="product_name">Product Name:</label>
                         <input type="text" id="product_name" name="product_name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select id="category" name="category_id" required>
+                            <option value="">Select a Category</option>
+                            <?php foreach ($category_data as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['category_name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
                     </div>
                 </div>
                 <div class="form-row">
@@ -162,6 +182,15 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                         <input type="text" id="manage_product_name" name="product_name" required>
                     </div>
                     <div class="form-group">
+                        <label for="manage_category_name">Category Name:</label>
+                        <select id="manage_category_name" name="manage_category_name" required>
+                            <option value="">Select a Category</option>
+                            <?php foreach ($category_data as $category): ?>
+                                <option value="<?= htmlspecialchars($category['id']) ?>"><?= htmlspecialchars($category['category_name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="manage_image_url">Image URL:</label>
                         <input type="text" id="manage_image_url" name="image_url" required>
                     </div>
@@ -235,6 +264,20 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 alertElement.style.display = 'none';
             }
         }, 10000);
+
+        document.getElementById("search").addEventListener("input", function() {
+            var searchQuery = this.value.toLowerCase();
+            var rows = document.querySelectorAll("#product-tbody tr");
+            rows.forEach(function(row) {
+                var name = row.querySelector("td:first-child").textContent.toLowerCase();
+                if (name.includes(searchQuery)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        });
+
     </script>
 </body>
 
