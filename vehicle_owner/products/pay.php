@@ -27,7 +27,7 @@ if ($loyaltyResult->num_rows > 0) {
 }
 
 // Fetch cart items for the logged-in user
-$query = "SELECT c.*, p.product_name, p.price, s.shop_name 
+$query = "SELECT c.*, p.id, p.price, s.shop_name 
           FROM cart c 
           JOIN products p ON c.product_id = p.id 
           JOIN shops s ON p.shop_id = s.id 
@@ -70,19 +70,12 @@ $session = \Stripe\Checkout\Session::create([
     'payment_method_types' => ['card'],
     'line_items' => $line_items,
     'mode' => 'payment',
-    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php',  // Replace with your actual success URL
+    'success_url' => 'http://localhost:3000/vehicle_owner/products/success.php?session_id={CHECKOUT_SESSION_ID}',  // Replace with your actual success URL
     'cancel_url' => 'http://localhost:3000/vehicle_owner/products/cancel.php',    // Replace with your actual cancel URL
 ]);
 
-// Insert the order with discounted total into the orders table
-$orderInsertQuery = $conn->prepare("INSERT INTO orders (product_name, quantity, purchase_date, total_price, discount, email, status) VALUES (?, ?, NOW(), ?, ?, ?, 'Pending')");
-foreach ($cart_items as $item) {
-    $orderInsertQuery->bind_param("sidds", $item['product_name'], $item['quantity'], $subtotal, $discountAmount, $userEmail);
-    $orderInsertQuery->execute();
-}
 
 // Close connections
-$orderInsertQuery->close();
 $stmt->close();
 $loyaltyCheckQuery->close();
 $conn->close();
