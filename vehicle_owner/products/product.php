@@ -69,15 +69,6 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
     <link rel="stylesheet" href="../navbar/style.css">
     <link rel="stylesheet" href="../shop/product-list.css">
 
-    <style>
-        .star-rating .star {
-            font-size: 1.2rem;
-            color: lightgray;
-        }
-        .star-rating .star.filled {
-            color: gold;
-        }
-    </style>
 </head>
 <body>
 <div class="main_container">
@@ -135,7 +126,7 @@ $message = isset($_GET['message']) ? htmlspecialchars($_GET['message']) : '';
                 <a class="go-to-shop-icon" onclick="window.location.href='shop_page.php?shop_id=<?= $row['shop_id'] ?>'">
                         <i class='bx bxs-store'></i>
                     </a>
-                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?>">
+                    <img src="<?= htmlspecialchars($row['image_url']) ?>" alt="<?= htmlspecialchars($row['product_name']) ?> loading='lazy'">
                     <div class="product-details">
                         <h3><?= htmlspecialchars($row['product_name']) ?></h3>
                         <div class="price">Rs.<?= htmlspecialchars($row['price']) ?></div>
