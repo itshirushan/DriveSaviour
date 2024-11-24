@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['message'] = "New password and confirm password do not match.";
             $_SESSION['msg_type'] = "error";
         } else {
-            $checkUserQuery = "SELECT * FROM mechanic WHERE email = ?";
+            $checkUserQuery = "SELECT * FROM vehicle_owner WHERE email = ?";
             $stmt = $conn->prepare($checkUserQuery);
             $stmt->bind_param('s', $email);
             $stmt->execute();
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT);
 
                 // Update the password
-                $updatePasswordQuery = "UPDATE mechanic SET password = ? WHERE email = ?";
+                $updatePasswordQuery = "UPDATE vehicle_owner SET password = ? WHERE email = ?";
                 $stmt = $conn->prepare($updatePasswordQuery);
                 $stmt->bind_param('ss', $hashedPassword, $email);
                 if ($stmt->execute()) {
