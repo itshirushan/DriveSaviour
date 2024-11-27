@@ -42,12 +42,21 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Income</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../navbar/style.css">
 </head>
 <body>
     <div class="main_container">
-        <h2 class="title">Payment Data</h2>
+        <h1 class="title">Payment Data</h1>
+        <div class="total-income">
+            <h3>Total Seller Income: LKR <?php echo number_format($total_seller_income, 2); ?></h3>
+        </div>
+
+        <form action="stripe_payment.php" method="POST">
+            <input type="hidden" name="total_amount" value="<?php echo $total_seller_income; ?>">
+            <input type="hidden" name="email" value="<?php echo $_SESSION['email']; ?>">
+            <button type="submit" class="btn">Pay Commission</button>
+        </form>
         <table class="table">
             <thead>
                 <tr>
@@ -78,16 +87,7 @@ try {
                 <?php endif; ?>
             </tbody>
         </table>
-
-        <div class="total-income">
-            <h3>Total Seller Income: LKR <?php echo number_format($total_seller_income, 2); ?></h3>
-        </div>
-
-        <form action="stripe_payment.php" method="POST">
-            <input type="hidden" name="total_amount" value="<?php echo $total_seller_income; ?>">
-            <input type="hidden" name="email" value="<?php echo $_SESSION['email']; ?>">
-            <button type="submit" class="btn">Pay Commission</button>
-        </form>
+<br>
     </div>
 </body>
 </html>

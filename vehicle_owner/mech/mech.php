@@ -1,4 +1,13 @@
 <?php
+session_start();
+ob_start();
+
+if (!isset($_SESSION['email'])) {
+    header("Location: ../Login/login.php");
+    exit;
+}
+
+
 require '../navbar/nav.php';
 require '../../connection.php';
 
@@ -18,6 +27,7 @@ $top_mechanics = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $top_mechanics[] = $row;
 }
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +80,6 @@ while ($row = mysqli_fetch_assoc($result)) {
             <h2>Explore our full range of expert <br>
             Auto repair and maintenance services.</h2>
 
-           <!--<a href="../home/home.php" class="button modify">Services</a>-->
         </div>
 
         <div class="contribution">
